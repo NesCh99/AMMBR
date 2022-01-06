@@ -9,4 +9,5 @@ public interface UsuarioHuespedDao {
     public UsuarioHuesped edit(String idUsuario);    //prototipo metodo editar
     public boolean save (UsuarioHuesped UsuarioHuesped);   //prototipo metodo guardar
     public boolean delete(String idUsuario); 
+    public boolean search (String idUsuario);   //prototipo metodo buscar por codigo
 }

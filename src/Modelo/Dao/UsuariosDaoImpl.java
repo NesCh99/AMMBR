@@ -5,6 +5,7 @@ import Modelo.Usuarios;
 import Modelo.Factory.ConexionDB;
 import Modelo.Factory.FactoryConexionDB;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,20 +52,21 @@ public class UsuariosDaoImpl implements UsuariosDao {
         Usuarios Usuarios = new Usuarios();
         
         StringBuilder sql = new StringBuilder();    //para almacenar la consulta e efectuar en la bd
-        sql.append("SELECT * FROM Usuarios WHERE idUsuario = ").append(idUsuario);   //cadena de consulta
+        sql.append("SELECT * FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);   //cadena de consulta
+        sql.append("'");
         
         try {
             ResultSet rs = this.conn.query(sql.toString());  //carga todos los registros que cumplen con la condicion del sql
 
             while (rs.next()){          //mientras haya registros cargados en el reseltset
-                Usuarios.setIdUsuario(rs.getString("idUsuario"));
-                Usuarios.setTipoUsuario(rs.getInt("tipoUsuario"));
-                Usuarios.setNombre(rs.getString("nombre"));
-                Usuarios.setApellido(rs.getString("apellido"));
-                Usuarios.setEmail(rs.getString("email"));
-                Usuarios.setContrasena(rs.getString("contrasena"));
-                Usuarios.setCelular(rs.getString("celular"));
-                Usuarios.setFoto(rs.getString("foto"));
+                Usuarios.setIdUsuario(rs.getString("IDUSUARIO"));
+                Usuarios.setTipoUsuario(rs.getInt("TIPOUSUARIO"));
+                Usuarios.setNombre(rs.getString("NOMBRE"));
+                Usuarios.setApellido(rs.getString("APELLIDO"));
+                Usuarios.setEmail(rs.getString("EMAIL"));
+                Usuarios.setContrasena(rs.getString("CONTRASEÑA"));
+                Usuarios.setCelular(rs.getString("CELULAR"));
+                Usuarios.setFoto(rs.getString("FOTO"));
             }
         } catch (Exception e) {
             
@@ -80,9 +82,18 @@ public class UsuariosDaoImpl implements UsuariosDao {
         boolean save = true;        //bandera para indicar si se almacenaron los cambios
         
         try {
-                if("".equals(Usuarios.getIdUsuario())){
+            boolean find = false;
+                StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
+            sqls.append("SELECT IDUSUARIO FROM usuarios WHERE IDUSUARIO = '").append(Usuarios.getIdUsuario());  //construye la cadena de consulta
+            sqls.append("'");
+            ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
+        
+            find = rs.next();
+            
+                if(find==false){
+                    
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO Usuarios (idUsuario, tipoUsuario, nombre, apellido, email, contrasena, celular, foto) VALUES ('").append(Usuarios.getIdUsuario());
+                sql.append("INSERT INTO Usuarios (IDUSUARIO, TIPOUSUARIO, NOMBRE, APELLIDO, EMAIL, CONTRASENA, CELULAR, FOTO) VALUES ('").append(Usuarios.getIdUsuario());
                 sql.append("', '").append(Usuarios.getTipoUsuario());  
                 sql.append("', '").append(Usuarios.getNombre());  
                 sql.append("', '").append(Usuarios.getApellido());  
@@ -93,14 +104,14 @@ public class UsuariosDaoImpl implements UsuariosDao {
                 this.conn.execute(sql.toString());      //ejecuta la query
             }else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE Usuarios SET idUsuario = ").append(Usuarios.getIdUsuario());
-                sql.append("', tipoUsuario = '").append(Usuarios.getTipoUsuario());
-                sql.append("', nombre = '").append(Usuarios.getNombre());
-                sql.append("', apellido = '").append(Usuarios.getApellido());
-                sql.append("', email = '").append(Usuarios.getEmail());
-                sql.append("', contrasena = '").append(Usuarios.getContrasena());
-                sql.append("', celular = '").append(Usuarios.getCelular());
-                sql.append(", foto = '").append(Usuarios.getFoto()).append(" WHERE idUsuario = ").append(Usuarios.getIdUsuario());      //crear la cadena de conexion
+                
+                sql.append("UPDATE usuarios SET NOMBRE = '").append(Usuarios.getNombre());
+                sql.append("', APELLIDO = '").append(Usuarios.getApellido());
+                sql.append("', EMAIL = '").append(Usuarios.getEmail());
+                sql.append("', CONTRASENA = '").append(Usuarios.getContrasena());
+                sql.append("', CELULAR = '").append(Usuarios.getCelular());
+                sql.append("', FOTO = '").append(Usuarios.getFoto()).append("' WHERE IDUSUARIO = '").append(Usuarios.getIdUsuario()); 
+                sql.append("'");//crear la cadena de conexion
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
             
@@ -120,7 +131,8 @@ public class UsuariosDaoImpl implements UsuariosDao {
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM Usuarios WHERE idUsuario = ").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("DELETE FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
         } catch (Exception e) {
@@ -129,5 +141,28 @@ public class UsuariosDaoImpl implements UsuariosDao {
             this.conn.close();                  //cierra la conexion
         }
         return delete;                              //devuelve el valor de la bandera
+    }
+
+    @Override
+    public boolean search(String idUsuario) {
+        boolean find = false;                     //bandera que indica resultado de operacion
+
+        this.conn = FactoryConexionDB.open();
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT IDUSUARIO FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);  //construye la cadena de consulta
+        sql.append("'");            
+        try{
+            
+            ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
+        
+            find = rs.next();
+            
+        } catch (SQLException e) {
+            
+        } finally {
+           this.conn.close();      //cierra la conexion
+        }        
+        return find;                              //devuelve el valor de la bandera
     }
 }

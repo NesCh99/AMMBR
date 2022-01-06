@@ -5,6 +5,7 @@ import Modelo.Factory.ConexionDB;
 import Modelo.Factory.FactoryConexionDB;
 import Modelo.UsuarioHuesped;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,19 +75,27 @@ public class UsuarioHuespedDaoImpl implements UsuarioHuespedDao {
         boolean save = true;        //bandera para indicar si se almacenaron los cambios
         
         try {
-                if("".equals(UsuarioHuesped.getIdUsuario())){
+            boolean find = false;
+                StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
+            sqls.append("SELECT IDUSUARIO FROM usuariohuesped WHERE IDUSUARIO = '").append(UsuarioHuesped.getIdUsuario());  //construye la cadena de consulta
+            sqls.append("'");
+            ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
+                find = rs.next();
+            
+                if(find==false){
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO UsuarioHuesped (idUsuario, genero, edad, pais) VALUES ('").append(UsuarioHuesped.getIdUsuario());
+                sql.append("INSERT INTO usuariohuesped (IDUSUARIO, GENERO, EDAD, PAIS) VALUES ('").append(UsuarioHuesped.getIdUsuario());
                 sql.append("', '").append(UsuarioHuesped.getGenero());  
                 sql.append("', '").append(UsuarioHuesped.getEdad());    
                 sql.append("', '").append(UsuarioHuesped.getPais()).append("')");      //crear la cadena de conexion
                 this.conn.execute(sql.toString());      //ejecuta la query
             }else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE UsuarioHuesped SET idUsuario = ").append(UsuarioHuesped.getIdUsuario());
-                sql.append("', genero = '").append(UsuarioHuesped.getGenero());
-                sql.append("', edad = '").append(UsuarioHuesped.getEdad());
-                sql.append(", pais = '").append(UsuarioHuesped.getPais()).append(" WHERE idUsuario = ").append(UsuarioHuesped.getIdUsuario());      //crear la cadena de conexion
+                sql.append("UPDATE usuariohuesped SET IDUSUARIO = ").append(UsuarioHuesped.getIdUsuario());
+                sql.append("', GENERO = '").append(UsuarioHuesped.getGenero());
+                sql.append("', EDAD = '").append(UsuarioHuesped.getEdad());
+                sql.append(", PAIS = '").append(UsuarioHuesped.getPais()).append(" WHERE IDUSUARIO = '").append(UsuarioHuesped.getIdUsuario());      //crear la cadena de conexion
+                sql.append("'");
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
             
@@ -115,5 +124,28 @@ public class UsuarioHuespedDaoImpl implements UsuarioHuespedDao {
             this.conn.close();                  //cierra la conexion
         }
         return delete;                              //devuelve el valor de la bandera
+    }
+
+    @Override
+    public boolean search(String idUsuario) {
+        boolean find = false;                     //bandera que indica resultado de operacion
+
+        this.conn = FactoryConexionDB.open();
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT IDUSUARIO FROM usuariohuesped WHERE IDUSUARIO = '").append(idUsuario);  //construye la cadena de consulta
+        sql.append("'");            
+        try{
+            
+            ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
+        
+            find = rs.next();
+            
+        } catch (SQLException e) {
+            
+        } finally {
+           this.conn.close();      //cierra la conexion
+        }        
+        return find;                              //devuelve el valor de la bandera
     }
 }

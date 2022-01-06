@@ -19,8 +19,7 @@ public class Distancia {
         double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)  
                 * Math.cos(Math.toRadians(lat_pa)) * Math.cos(Math.toRadians(lat_des));  
         double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));  
-        double distancia = radioTierra * va2;  
-   
+        double distancia = radioTierra * va2;     
         return distancia;  
     }
     

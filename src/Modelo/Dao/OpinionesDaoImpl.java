@@ -92,9 +92,10 @@ public class OpinionesDaoImpl implements OpinionesDao{
                 this.conn.execute(sql.toString());      //ejecuta la query*/
         	if("".equals(Opiniones.getIdHospedaje())){
         		StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO Opiniones (idHospedaje, estrellas, comentario) VALUES ('").append(Opiniones.getIdHospedaje());
-                sql.append("', '").append(Opiniones.getEstrellas()).append("')");      //crear la cadena de conexion
-                sql.append("', '").append(Opiniones.getComentario()).append("')"); 
+                sql.append("INSERT INTO Opiniones (IDHOSPEDAJE, ESTRELLAS, COMENTARIO, IDHUESPED) VALUES ('").append(Opiniones.getIdHospedaje());
+                sql.append("', '").append(Opiniones.getEstrellas());      //crear la cadena de conexion
+                sql.append("', '").append(Opiniones.getComentario());
+                sql.append("', '").append(Opiniones.getIdHuesped()).append("')"); 
                 this.conn.execute(sql.toString());      //ejecuta la query     //ejecuta la query
             }else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
@@ -124,7 +125,7 @@ public class OpinionesDaoImpl implements OpinionesDao{
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM Opiniones WHERE idHospedaje = ").append(idHospedaje);    //crea la sentencia de borrado
+            sql.append("DELETE FROM OPINIONES WHERE IDOPINION = ").append(idHospedaje);    //crea la sentencia de borrado
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
         } catch (Exception e) {

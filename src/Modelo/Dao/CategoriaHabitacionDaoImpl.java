@@ -27,7 +27,7 @@ public class CategoriaHabitacionDaoImpl implements CategoriaHabitacionDao{
         this.conn = FactoryConexionDB.open();
         
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM CategoriaHabitacion ");  //construye la cadena de consulta
+        sql.append("SELECT * FROM CategoriaHabitacion");  //construye la cadena de consulta
 
         List<CategoriaHabitacion> list = new ArrayList<>(); 
         
@@ -77,17 +77,17 @@ public class CategoriaHabitacionDaoImpl implements CategoriaHabitacionDao{
         boolean save = true;        //bandera para indicar si se almacenaron los cambios
         
         try {
-            if("".equals(CategoriaHabitacion.getIdCategoriaHabitacion())){
+            //if("".equals(CategoriaHabitacion.getIdCategoriaHabitacion())){
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
                 sql.append("INSERT INTO CategoriaHabitacion (idCategoriaHabitacion, nombre) VALUES ('").append(CategoriaHabitacion.getIdCategoriaHabitacion());
                 sql.append("', '").append(CategoriaHabitacion.getNombre()).append("')");      //crear la cadena de conexion
                 this.conn.execute(sql.toString());      //ejecuta la query
-            }else{
+            /*}else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
                 sql.append("UPDATE CategoriaHabitacion SET idCategoriaHabitacion = ").append(CategoriaHabitacion.getIdCategoriaHabitacion());
                 sql.append(", nombre = '").append(CategoriaHabitacion.getNombre()).append(" WHERE idCategoriaHabitacion = ").append(CategoriaHabitacion.getIdCategoriaHabitacion());      //crear la cadena de conexion
                 this.conn.execute(sql.toString());      //ejecuta la query 
-            }
+            }*/
             
             save = true;                                //cambia estado de bandera
         } catch(Exception e){
