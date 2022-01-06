@@ -2,7 +2,9 @@ package Modelo;
 
 public class Opiniones {
 	private String idHospedaje;
+        private long idOpinion;
 	private int estrellas;
+        private int idHuesped;
 	private String comentario;
 	
 	public String getIdHospedaje() {
@@ -23,6 +25,22 @@ public class Opiniones {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
+
+        public int getIdHuesped() {
+            return idHuesped;
+        }
+
+        public void setIdHuesped(int idHuesped) {
+            this.idHuesped = idHuesped;
+        }
+
+    public long getIdOpinion() {
+        return idOpinion;
+    }
+
+    public void setIdOpinion(long idOpinion) {
+        this.idOpinion = idOpinion;
+    }
 	
 
 }

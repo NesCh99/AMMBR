@@ -9,8 +9,8 @@ import Modelo.Opiniones;
 public interface OpinionesDao {
 public List<Opiniones> list();
 	
-	public Opiniones edit(String idHospedaje);
+	public Opiniones edit(int idOpinion);
 	public boolean save(Opiniones Opiniones);
-	public boolean delete(String idHospedaje);
+	public boolean delete(int idOpinion, int idHuesped);
 
 }

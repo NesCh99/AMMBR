@@ -3,11 +3,20 @@ package Modelo;
 
 
 public class UsuarioHuesped {
+    private long idHuesped;
     private String idUsuario;
     private Integer genero;
     private Integer edad;
     private String pais;
 
+    public long getIdHuesped() {
+        return idHuesped;
+    }
+
+    public void setIdHuesped(long idHuesped) {
+        this.idHuesped = idHuesped;
+    }
+    
     public String getIdUsuario() {
         return idUsuario;
     }
