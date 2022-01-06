@@ -15,6 +15,6 @@ public interface UsuariosDao {
     public List<Usuarios> list();    //prototipo metodo listar
     public Usuarios edit(String idUsuario);    //prototipo metodo editar
     public boolean save (Usuarios Usuarios);   //prototipo metodo guardar
-    public boolean search (String idUsuario);   //prototipo metodo buscar por codigo
+    public Usuarios search (String idUsuario);   //prototipo metodo buscar por codigo
     public boolean delete(String idUsuario); 
 }

@@ -19,7 +19,7 @@ public class UsuariosDaoImpl implements UsuariosDao {
         this.conn = FactoryConexionDB.open();
         
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM Usuario ");  //construye la cadena de consulta
+        sql.append("SELECT * FROM usuarios ");  //construye la cadena de consulta
 
         List<Usuarios> list = new ArrayList<>(); 
         
@@ -27,14 +27,14 @@ public class UsuariosDaoImpl implements UsuariosDao {
             ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
             while (rs.next()){  //mientras haya registros en la tabla
                 Usuarios Usuarios = new Usuarios(); 
-                Usuarios.setIdUsuario(rs.getString("idUsuario"));
-                Usuarios.setTipoUsuario(rs.getInt("tipoUsuario"));
-                Usuarios.setNombre(rs.getString("nombre"));
-                Usuarios.setApellido(rs.getString("apellido"));
-                Usuarios.setEmail(rs.getString("email"));
-                Usuarios.setContrasena(rs.getString("contrasena"));
-                Usuarios.setCelular(rs.getString("celular"));
-                Usuarios.setFoto(rs.getString("foto"));
+                Usuarios.setIdUsuario(rs.getString("IDUSUARIO"));
+                Usuarios.setTipoUsuario(rs.getInt("TIPOUSUARIO"));
+                Usuarios.setNombre(rs.getString("NOMBRE"));
+                Usuarios.setApellido(rs.getString("APELLIDO"));
+                Usuarios.setEmail(rs.getString("EMAIL"));
+                Usuarios.setContrasena(rs.getString("CONTRASENA"));
+                Usuarios.setCelular(rs.getString("CELULAR"));
+                Usuarios.setFoto(rs.getString("FOTO"));
          
                 list.add(Usuarios);  //añade el objeto temporal en la lista
             }
@@ -144,25 +144,32 @@ public class UsuariosDaoImpl implements UsuariosDao {
     }
 
     @Override
-    public boolean search(String idUsuario) {
-        boolean find = false;                     //bandera que indica resultado de operacion
-
+    public Usuarios search(String idUsuario) {
         this.conn = FactoryConexionDB.open();
-        
+        Usuarios Usuarios = new Usuarios();
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT IDUSUARIO FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);  //construye la cadena de consulta
+        sql.append("SELECT * FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);  //construye la cadena de consulta
         sql.append("'");            
         try{
             
-            ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
-        
-            find = rs.next();
+            ResultSet rs = this.conn.query(sql.toString());  //carga todos los registros que cumplen con la condicion del sql
+
+            while (rs.next()){          //mientras haya registros cargados en el reseltset
+                Usuarios.setIdUsuario(rs.getString("IDUSUARIO"));
+                Usuarios.setTipoUsuario(rs.getInt("TIPOUSUARIO"));
+                Usuarios.setNombre(rs.getString("NOMBRE"));
+                Usuarios.setApellido(rs.getString("APELLIDO"));
+                Usuarios.setEmail(rs.getString("EMAIL"));
+                Usuarios.setContrasena(rs.getString("CONTRASEÑA"));
+                Usuarios.setCelular(rs.getString("CELULAR"));
+                Usuarios.setFoto(rs.getString("FOTO"));
+            }
             
         } catch (SQLException e) {
             
         } finally {
            this.conn.close();      //cierra la conexion
         }        
-        return find;                              //devuelve el valor de la bandera
+        return Usuarios;                              //devuelve el valor de la bandera
     }
 }

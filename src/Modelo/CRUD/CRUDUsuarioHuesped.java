@@ -45,13 +45,14 @@ public class CRUDUsuarioHuesped {
     
     public void editarUsuarioHuesped(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular, int edad){
         CRUDUsuarios.editarUsuario(idusuario, nombre, apellido, email, foto, contraseña, celular);
+        UsuarioHuesped.setIdUsuario(idusuario.toUpperCase());
         UsuarioHuesped.setEdad(edad);        
         UsuarioHuespedDao.save(UsuarioHuesped);
     }
 
     public void eliminarUsuarioHuesped(String idusuario){
         CRUDUsuarios.eliminarUsuario(idusuario);
-        UsuarioHuespedDao.delete(idusuario);
+        UsuarioHuespedDao.delete(idusuario.toUpperCase());
     }
     
 }

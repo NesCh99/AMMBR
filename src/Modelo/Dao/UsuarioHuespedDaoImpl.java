@@ -79,6 +79,7 @@ public class UsuarioHuespedDaoImpl implements UsuarioHuespedDao {
                 StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
             sqls.append("SELECT IDUSUARIO FROM usuariohuesped WHERE IDUSUARIO = '").append(UsuarioHuesped.getIdUsuario());  //construye la cadena de consulta
             sqls.append("'");
+            
             ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
                 find = rs.next();
             
@@ -91,11 +92,9 @@ public class UsuarioHuespedDaoImpl implements UsuarioHuespedDao {
                 this.conn.execute(sql.toString());      //ejecuta la query
             }else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE usuariohuesped SET IDUSUARIO = ").append(UsuarioHuesped.getIdUsuario());
-                sql.append("', GENERO = '").append(UsuarioHuesped.getGenero());
-                sql.append("', EDAD = '").append(UsuarioHuesped.getEdad());
-                sql.append(", PAIS = '").append(UsuarioHuesped.getPais()).append(" WHERE IDUSUARIO = '").append(UsuarioHuesped.getIdUsuario());      //crear la cadena de conexion
+                sql.append("UPDATE usuariohuesped SET EDAD = '").append(UsuarioHuesped.getEdad()).append("' WHERE IDUSUARIO = '").append(UsuarioHuesped.getIdUsuario());      //crear la cadena de conexion
                 sql.append("'");
+                System.out.println(sql);
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
             
@@ -115,7 +114,8 @@ public class UsuarioHuespedDaoImpl implements UsuarioHuespedDao {
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM UsuarioHuesped WHERE idUsuario = ").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("DELETE FROM usuariohuesped WHERE IDUSUARIO = '").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
         } catch (Exception e) {

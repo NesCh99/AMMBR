@@ -22,17 +22,18 @@ public class CRUDOpiniones {
         Opiniones.setComentario(comentario.toUpperCase());        
         Opiniones.setIdHospedaje(idhospedaje.toUpperCase());
         Opiniones.setIdHuesped(idhuesped);
+        OpinionesDao.save(Opiniones);  
+    }
+    
+    public void editarOpinion(int estrellas, String comentario, int idopinion){
+        Opiniones.setIdOpinion(idopinion);        
+        Opiniones.setEstrellas(estrellas);
+        Opiniones.setComentario(comentario.toUpperCase());
         OpinionesDao.save(Opiniones);
     }
     
-    public void editarOpinion(int estrellas, String comentario, int idOpinion){
-        Opiniones.setEstrellas(estrellas);
-        Opiniones.setComentario(comentario);
-        OpinionesDao.edit(idOpinion);
-    }
-    
-    public void eliminarOpinion(int idOpinion){
-        OpinionesDao.delete(idOpinion);
+    public void eliminarOpinion(int idOpinion, int idHuesped){
+        OpinionesDao.delete(idOpinion, idHuesped);
     }
     
 }

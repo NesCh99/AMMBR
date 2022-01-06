@@ -31,10 +31,10 @@ public class CRUDUsuarios {
     }
     
     public void editarUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular){
-        Usuarios.setIdUsuario(idusuario);
-        Usuarios.setNombre(nombre);
-        Usuarios.setApellido(apellido);
-        Usuarios.setEmail(email);
+        Usuarios.setIdUsuario(idusuario.toUpperCase());
+        Usuarios.setNombre(nombre.toUpperCase());
+        Usuarios.setApellido(apellido.toUpperCase());
+        Usuarios.setEmail(email.toLowerCase());
         Usuarios.setContrasena(contraseña);
         Usuarios.setCelular(celular);
         Usuarios.setFoto(foto);        
@@ -42,7 +42,11 @@ public class CRUDUsuarios {
     }
     
     public void eliminarUsuario(String idusuario){
-        Usuarios.setIdUsuario(idusuario);
-        UsuariosDao.delete(idusuario);
+        Usuarios.setIdUsuario(idusuario.toUpperCase());
+        UsuariosDao.delete(idusuario.toUpperCase());
+    }
+    
+    public void buscarUsuarioxIdUsuario(String idUsuario){
+        UsuariosDao.search(idUsuario);
     }
 }
