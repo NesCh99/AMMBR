@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
  *
  * @author Nes Ch
@@ -33,4 +34,5 @@ public class ConexionMySQL extends ConexionDB {
         }
         return this.connection;     //devuelve la conexion q es atributo declarada en superclase
     }
+    
 }
