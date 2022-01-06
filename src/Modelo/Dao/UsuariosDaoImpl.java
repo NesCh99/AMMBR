@@ -144,7 +144,7 @@ public class UsuariosDaoImpl implements UsuariosDao {
     }
 
     @Override
-    public Usuarios search(String idUsuario) {
+    public Usuarios searchxUsuario(String idUsuario) {
         this.conn = FactoryConexionDB.open();
         Usuarios Usuarios = new Usuarios();
         StringBuilder sql = new StringBuilder();
@@ -171,5 +171,27 @@ public class UsuariosDaoImpl implements UsuariosDao {
            this.conn.close();      //cierra la conexion
         }        
         return Usuarios;                              //devuelve el valor de la bandera
+    }
+
+    @Override
+    public boolean search(String idUsuario) {
+        this.conn = FactoryConexionDB.open();
+        boolean band = true;
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM usuarios WHERE IDUSUARIO = '").append(idUsuario);  //construye la cadena de consulta
+        sql.append("'");            
+        try{
+            
+            ResultSet rs = this.conn.query(sql.toString());  //carga todos los registros que cumplen con la condicion del sql
+
+            band = rs.next();
+            
+        } catch (SQLException e) {
+            
+        } finally {
+           this.conn.close();      //cierra la conexion
+        }        
+        return band;                              //devuelve el valor de la bandera
     }
 }

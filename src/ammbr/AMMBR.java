@@ -11,6 +11,7 @@ import Modelo.Negocio.Distancia;
 import Modelo.CategoriaHospedaje;
 import Modelo.Dao.CategoriaHospedajeDao;
 import Modelo.Dao.CategoriaHospedajeDaoImpl;
+import Modelo.Negocio.Seguridad.Encriptacion;
 import java.util.List;
 
 /**
@@ -25,21 +26,22 @@ public class AMMBR {
     public static void main(String[] args) {
         ModuloUsuarioHuesped();
         ModuloOpiniones();
+
     }
-    
-    public static void ModuloUsuarioHuesped(){
+
+    public static void ModuloUsuarioHuesped() {
         CRUDUsuarioHuesped usuariohuesped = new CRUDUsuarioHuesped();
-        //usuariohuesped.nuevoUsuarioHuesped("Juan2099", "nestor", "chela", "neschp@gmail.com", "askjdgasdjb", "nesch", "0960175021", 3, 1, 22, "ecuador");
-        //usuariohuesped.editarUsuarioHuesped("nestor99", "juan", "chela", "neschp@gmail.com", "20320", "nesch", "0960175021", 23);
+        //usuariohuesped.nuevoUsuarioHuesped("javier", "javier", "saltos", "js@gmail.com", "12345", "espoch2022", "0960175021", 1, 1, 45, "ecuador");
+        //usuariohuesped.editarUsuarioHuesped("javier", "juan", "chela", "javier@gmail.com", "20320", "nesch", "0960175021", 23);
         //usuariohuesped.eliminarUsuarioHuesped("nestor99");
     }
-    
-    public static void ModuloOpiniones(){
+
+    public static void ModuloOpiniones() {
         CRUDOpiniones opinion = new CRUDOpiniones();
         //opinion.nuevaOpinion(5, "muy buen servicio", "HOT-004", 3);
         //opinion.editarOpinion(1, "Mal lugar", 3);
         //opinion.eliminarOpinion(4,0);
-        
+
     }
 
 }

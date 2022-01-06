@@ -7,6 +7,7 @@ package Modelo.CRUD;
 import Modelo.Dao.UsuariosDao;
 import Modelo.Dao.UsuariosDaoImpl;
 import Modelo.Negocio.Seguridad.ControlIngresoDatos;
+import Modelo.Negocio.Seguridad.Encriptacion;
 import Modelo.Usuarios;
 
 /**
@@ -16,13 +17,15 @@ import Modelo.Usuarios;
 public class CRUDUsuarios {
     UsuariosDao UsuariosDao = new UsuariosDaoImpl();
     Usuarios Usuarios = new Usuarios();
+    Encriptacion encriptacion = new Encriptacion();
+        
     
     public void nuevoUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular, int tipo){
                 Usuarios.setIdUsuario(idusuario.toUpperCase());
                 Usuarios.setNombre(nombre.toUpperCase());
                 Usuarios.setApellido(apellido.toUpperCase());
-                Usuarios.setEmail(email.toLowerCase());
-                Usuarios.setContrasena(contraseña);
+                Usuarios.setEmail(email.toLowerCase());                
+                Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
                 Usuarios.setCelular(celular);
                 Usuarios.setFoto(foto);
                 Usuarios.setTipoUsuario(tipo);
@@ -35,7 +38,7 @@ public class CRUDUsuarios {
         Usuarios.setNombre(nombre.toUpperCase());
         Usuarios.setApellido(apellido.toUpperCase());
         Usuarios.setEmail(email.toLowerCase());
-        Usuarios.setContrasena(contraseña);
+        Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
         Usuarios.setCelular(celular);
         Usuarios.setFoto(foto);        
         UsuariosDao.save(Usuarios);
