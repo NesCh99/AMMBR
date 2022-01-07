@@ -17,4 +17,6 @@ public interface SitioHospedajeDao {
     public SitioHospedaje edit(String idSitioHospedaje);    //prototipo metodo editar
     public boolean save (SitioHospedaje SitioHospedaje);   //prototipo metodo guardar
     public boolean delete(String idSitioHospedaje); 
+    public boolean search(String idSitioHospedaje);
+    public List<SitioHospedaje> searchName(String nombre);
 }

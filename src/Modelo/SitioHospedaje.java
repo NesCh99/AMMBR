@@ -10,7 +10,6 @@ package Modelo;
  */
 public class SitioHospedaje {
     private String idHospedaje;
-    private String idCategoriaHospedaje;
     private String nombre;
     private String latitud;
     private String longitud;
@@ -23,6 +22,9 @@ public class SitioHospedaje {
     private int pagoEfectivo;
     private int pagoElectronico;
     private int pagoTarjeta;
+    private int cat_Hotel;
+    private int cat_Hostal;
+    private int cat_Hosteria;
 
     public String getIdHospedaje() {
         return idHospedaje;
@@ -30,14 +32,6 @@ public class SitioHospedaje {
 
     public void setIdHospedaje(String idHospedaje) {
         this.idHospedaje = idHospedaje;
-    }
-
-    public String getIdCategoriaHospedaje() {
-        return idCategoriaHospedaje;
-    }
-
-    public void setIdCategoriaHospedaje(String idCategoriaHospedaje) {
-        this.idCategoriaHospedaje = idCategoriaHospedaje;
     }
 
     public String getNombre() {
@@ -136,6 +130,30 @@ public class SitioHospedaje {
 
     public void setPagoTarjeta(int pagoTarjeta) {
         this.pagoTarjeta = pagoTarjeta;
+    }
+
+    public int getCat_Hotel() {
+        return cat_Hotel;
+    }
+
+    public void setCat_Hotel(int cat_Hotel) {
+        this.cat_Hotel = cat_Hotel;
+    }
+
+    public int getCat_Hostal() {
+        return cat_Hostal;
+    }
+
+    public void setCat_Hostal(int cat_Hostal) {
+        this.cat_Hostal = cat_Hostal;
+    }
+
+    public int getCat_Hosteria() {
+        return cat_Hosteria;
+    }
+
+    public void setCat_Hosteria(int cat_Hosteria) {
+        this.cat_Hosteria = cat_Hosteria;
     }
     
     

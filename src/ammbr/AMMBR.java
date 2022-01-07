@@ -4,15 +4,14 @@
  */
 package ammbr;
 
+
 import Modelo.CRUD.CRUDOpiniones;
 import Modelo.CRUD.CRUDUsuarioAdminApp;
 import Modelo.CRUD.CRUDUsuarioAdminHospedaje;
 import Modelo.CRUD.CRUDUsuarioHuesped;
 import Modelo.CRUD.CRUDUsuarios;
 import Modelo.Negocio.Distancia;
-import Modelo.CategoriaHospedaje;
-import Modelo.Dao.CategoriaHospedajeDao;
-import Modelo.Dao.CategoriaHospedajeDaoImpl;
+
 import Modelo.Dao.SitioHospedajeDao;
 import Modelo.Dao.SitioHospedajeDaoImpl;
 import Modelo.Negocio.Seguridad.Encriptacion;
@@ -37,6 +36,7 @@ public class AMMBR {
     }
     
     public static void ModuloSitioHospedaje(){
+        
         
     }
 
