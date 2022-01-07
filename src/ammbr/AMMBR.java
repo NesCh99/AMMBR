@@ -5,17 +5,12 @@
 package ammbr;
 
 
-import Modelo.CRUD.CRUDOpiniones;
-import Modelo.CRUD.CRUDUsuarioAdminApp;
-import Modelo.CRUD.CRUDUsuarioAdminHospedaje;
-import Modelo.CRUD.CRUDUsuarioHuesped;
-import Modelo.CRUD.CRUDUsuarios;
+import Modelo.CRUD.*;
 import Modelo.Negocio.Distancia;
 
 import Modelo.Dao.SitioHospedajeDao;
 import Modelo.Dao.SitioHospedajeDaoImpl;
-import Modelo.Negocio.Seguridad.Encriptacion;
-import java.util.List;
+import Modelo.Negocio.generaCodigoHospedaje;
 
 /**
  *
@@ -36,8 +31,43 @@ public class AMMBR {
     }
     
     public static void ModuloSitioHospedaje(){
+        CRUDSitioHospedaje sitiohospedaje = new CRUDSitioHospedaje();
+        CRUDHabitacion habitacion = new CRUDHabitacion();
+        CRUDServiciosExtra servicio = new CRUDServiciosExtra();
+        generaCodigoHospedaje generaCodigoHospedaje = new generaCodigoHospedaje();
         
+        /*sitiohospedaje.guardarSitioHospedaje(generaCodigoHospedaje.codigoHospedaje(),
+                "HACIENDA",
+                "-1.6529304",
+                "-78.6398802",
+                "HOTEL LAS 24HORAS",
+                "9999999",
+                "0983418927",
+                "www.HOTEL.COM",
+                "www.HotelFacebook.com",
+                "www.whatsapp.com", 1, 0, 0, 0, 0, 1);*/
         
+        /*sitiohospedaje.editarSitioHospedaje("HOTEL-5",
+                "HACIENDA CAMPO",
+                "-1.6529304",
+                "-78.6398802",
+                "HOTEL LAS 24HORAS",
+                "9999999",
+                "0983418927",
+                "www.HOTEL.COM",
+                "www.HotelFacebook.com",
+                "www.whatsapp.com", 1, 0, 0, 0, 0, 1);*/
+        
+        //sitiohospedaje.eliminarSitioHospedaje("HOTEL-5");
+        
+        //habitacion.nuevaHabitacion("GRAN", "GRANDE", "HOS-001", 2, "habitacion grande para familias", 75.00);
+        //habitacion.modificarHabitacion("gran", "grandota", "Habitacion grandota", 3, 100.00);
+        //habitacion.eliminarHabitacion("GRAN");
+        
+        //servicio.nuevoServicioExtra("HOS-001", "agua caliente");
+        //servicio.modificarServicioExtra(3, "wifi");
+        //servicio.eliminarServicioExtra(3);
+              
     }
 
     public static void ModuloUsuarios() {

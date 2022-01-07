@@ -42,4 +42,8 @@ public class CRUDHabitacion {
         habitacion.setPrecio(precio);
         HabitacionDao.save(habitacion);
     }
+    
+    public void eliminarHabitacion(String idhabitacion){
+        HabitacionDao.delete(idhabitacion.toUpperCase());
+    }
 }

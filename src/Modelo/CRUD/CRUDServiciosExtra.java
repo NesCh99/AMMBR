@@ -15,6 +15,7 @@ import Modelo.ServiciosExtra;
 public class CRUDServiciosExtra {
     ServiciosExtraDao ServiciosExtraDao = new ServiciosExtraDaoImpl();
     ServiciosExtra servicios = new ServiciosExtra();
+    
     public void nuevoServicioExtra(String idhospedaje, String descripcion){
         servicios.setIdHospedaje(idhospedaje.toUpperCase());
         servicios.setDescripcion(descripcion.toUpperCase());

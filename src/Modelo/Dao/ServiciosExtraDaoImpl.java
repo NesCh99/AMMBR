@@ -95,8 +95,7 @@ public class ServiciosExtraDaoImpl implements ServiciosExtraDao {
                 this.conn.execute(sql.toString());    //ejecuta la query
             } else {
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE serviciosextra SET NOMBRE = ").append(ServiciosExtra.getIdHospedaje());
-                sql.append(", DESCRIPCION = '").append(ServiciosExtra.getDescripcion()).append("' WHERE IDHOSPEDAJE = '").append(ServiciosExtra.getIdHospedaje());      //crear la cadena de conexion
+                sql.append("UPDATE serviciosextra SET DESCRIPCION = '").append(ServiciosExtra.getDescripcion()).append("' WHERE IDSERVICIOSEXTRA = '").append(ServiciosExtra.getIdServiciosExtra());      //crear la cadena de conexion
                 sql.append("'");
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
@@ -118,7 +117,7 @@ public class ServiciosExtraDaoImpl implements ServiciosExtraDao {
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try {
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM serviciosextra WHERE IDSERVICIOEXTRA = '").append(idServicioExtra);    //crea la sentencia de borrado
+            sql.append("DELETE FROM serviciosextra WHERE IDSERVICIOSEXTRA = '").append(idServicioExtra);    //crea la sentencia de borrado
             sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;

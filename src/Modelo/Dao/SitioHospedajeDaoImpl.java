@@ -105,7 +105,7 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
         try {
             boolean find = false;
             StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
-            sqls.append("SELECT IDUSUARIO FROM sitiohospedaje WHERE IDUSUARIO = '").append(SitioHospedaje.getIdHospedaje());  //construye la cadena de consulta
+            sqls.append("SELECT IDHOSPEDAJE FROM sitiohospedaje WHERE IDHOSPEDAJE = '").append(SitioHospedaje.getIdHospedaje());  //construye la cadena de consulta
             sqls.append("'");
             ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
 
@@ -113,7 +113,7 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
 
             if (find == false) {
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO SitioHospedaje (IDHOSPEDAJE, NOMBRE, LATITUD, LONGITUD,"
+                sql.append("INSERT INTO sitiohospedaje (IDHOSPEDAJE, NOMBRE, LATITUD, LONGITUD,"
                         + "DESCRIPCION, TELEFONO, CELULAR, SITIOWEBURL, FANPAGEURL, "
                         + "WHATSAPPURL,PAGOEFECTIVO , PAGOELECTRONICO, PAGOTARJETA, "
                         + "CAT_HOTEL, CAT_HOSTAL, CAT_HOSTERIA) VALUES ('").append(SitioHospedaje.getIdHospedaje());
@@ -135,21 +135,22 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
                 this.conn.execute(sql.toString());      //ejecuta la query
             } else {
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE SitioHospedaje SET NOMBRE = '").append(SitioHospedaje.getNombre());
-                sql.append(", LATITUD = '").append(SitioHospedaje.getLatitud());
-                sql.append(", LONGITUD = '").append(SitioHospedaje.getLongitud());
-                sql.append(", DESCRIPCION = '").append(SitioHospedaje.getDescripcion());
-                sql.append(", TELEFONO = '").append(SitioHospedaje.getTelefono());
-                sql.append(", CELULAR = '").append(SitioHospedaje.getCelular());
-                sql.append(", SITIOWEBURL = '").append(SitioHospedaje.getSitioWebURL());
-                sql.append(", FANPAGEURL = '").append(SitioHospedaje.getFanPageURL());
-                sql.append(", WHATSAPPURL = '").append(SitioHospedaje.getWhatsappURL());
-                sql.append(", PAGOEFECTIVO,= '").append(SitioHospedaje.getPagoEfectivo());
-                sql.append(", PAGOELECTRONICO = '").append(SitioHospedaje.getPagoElectronico());
-                sql.append(", PAGOTARJETA = ").append(SitioHospedaje.getPagoTarjeta());
-                sql.append(", CAT_HOTEL = ").append(SitioHospedaje.getCat_Hotel());
-                sql.append(", CAT_HOSTAL = ").append(SitioHospedaje.getCat_Hostal());
-                sql.append(", CAT_HOSTERIA = ").append(SitioHospedaje.getCat_Hosteria()).append(" WHERE IDHOSPEDAJE= ").append(SitioHospedaje.getIdHospedaje());      //crear la cadena de conexion
+                sql.append("UPDATE sitiohospedaje SET NOMBRE = '").append(SitioHospedaje.getNombre());
+                sql.append("', LATITUD = '").append(SitioHospedaje.getLatitud());
+                sql.append("', LONGITUD = '").append(SitioHospedaje.getLongitud());
+                sql.append("', DESCRIPCION = '").append(SitioHospedaje.getDescripcion());
+                sql.append("', TELEFONO = '").append(SitioHospedaje.getTelefono());
+                sql.append("', CELULAR = '").append(SitioHospedaje.getCelular());
+                sql.append("', SITIOWEBURL = '").append(SitioHospedaje.getSitioWebURL());
+                sql.append("', FANPAGEURL = '").append(SitioHospedaje.getFanPageURL());
+                sql.append("', WHATSAPPURL = '").append(SitioHospedaje.getWhatsappURL());
+                sql.append("', PAGOEFECTIVO = '").append(SitioHospedaje.getPagoEfectivo());
+                sql.append("', PAGOELECTRONICO = '").append(SitioHospedaje.getPagoElectronico());
+                sql.append("', PAGOTARJETA = '").append(SitioHospedaje.getPagoTarjeta());
+                sql.append("', CAT_HOTEL = '").append(SitioHospedaje.getCat_Hotel());
+                sql.append("', CAT_HOSTAL = '").append(SitioHospedaje.getCat_Hostal());
+                sql.append("', CAT_HOSTERIA = '").append(SitioHospedaje.getCat_Hosteria()).append("' WHERE IDHOSPEDAJE= '").append(SitioHospedaje.getIdHospedaje());      //crear la cadena de conexion
+                sql.append("'");
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
 
@@ -169,7 +170,7 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try {
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM sitiohospedaje WHERE IDHOSPEDAJE = ").append(idSitioHospedaje);    //crea la sentencia de borrado
+            sql.append("DELETE FROM sitiohospedaje WHERE IDHOSPEDAJE = '").append(idSitioHospedaje);    //crea la sentencia de borrado
             sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;

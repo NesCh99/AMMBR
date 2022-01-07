@@ -106,7 +106,7 @@ public class HabitacionDaoImpl implements HabitacionDao{
                 sql.append("UPDATE habitacion SET CATEGORIAHABITACION = '").append(Habitacion.getCategoriaHabitacion());
                 sql.append("', NUMEROCAMAS= '").append(Habitacion.getNumeroCamas());
                 sql.append("', DESCRIPCION = '").append(Habitacion.getDescripcion());
-                sql.append("', PRECIO = '").append(Habitacion.getPrecio()).append(" WHERE IDHABITACION = ").append(Habitacion.getIdHabitacion());      //crear la cadena de conexion
+                sql.append("', PRECIO = '").append(Habitacion.getPrecio()).append("' WHERE IDHABITACION = '").append(Habitacion.getIdHabitacion());      //crear la cadena de conexion
                 sql.append("'");
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
@@ -128,7 +128,7 @@ public class HabitacionDaoImpl implements HabitacionDao{
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM habitacion WHERE IDHABITACION = ").append(idHabitacion);    //crea la sentencia de borrado
+            sql.append("DELETE FROM habitacion WHERE IDHABITACION = '").append(idHabitacion);    //crea la sentencia de borrado
             sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
