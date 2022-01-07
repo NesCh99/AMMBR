@@ -25,7 +25,7 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
         this.conn = FactoryConexionDB.open();
         
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM SitioHospedaje ");  //construye la cadena de consulta
+        sql.append("SELECT * FROM sitiohospedaje ");  //construye la cadena de consulta
 
         List<SitioHospedaje> list = new ArrayList<>(); 
         
@@ -33,20 +33,20 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
             ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
             while (rs.next()){  //mientras haya registros en la tabla
                 SitioHospedaje SitioHospedaje = new SitioHospedaje(); 
-                SitioHospedaje.setIdHospedaje(rs.getString("idHospedaje"));
-                SitioHospedaje.setIdCategoriaHospedaje(rs.getString("idCategoriaHospedaje"));
-                SitioHospedaje.setNombre(rs.getString("nombre"));
-                SitioHospedaje.setLatitud(rs.getLong("latitud"));
-                SitioHospedaje.setLongitud(rs.getLong("longitud"));
-                SitioHospedaje.setDescripcion(rs.getString("descripcion"));
-                SitioHospedaje.setTelefono(rs.getString("telefono"));
-                SitioHospedaje.setCelular(rs.getString("Celular"));
-                SitioHospedaje.setSitioWebURL(rs.getString("sitioWebURL"));
-                SitioHospedaje.setFanPageURL(rs.getString("fanpageURL"));
-                SitioHospedaje.setWhatsappURL(rs.getString("whatsappURL"));
-                SitioHospedaje.setPagoEfectivo(rs.getInt("pagoEfectivo"));
-                SitioHospedaje.setPagoElectronico(rs.getInt("pagoElectronico"));
-                SitioHospedaje.setPagoTarjeta(rs.getInt("pagoTarjeta"));
+                SitioHospedaje.setIdHospedaje(rs.getString("IDHOSPEDAJE"));
+                SitioHospedaje.setIdCategoriaHospedaje(rs.getString("IDCATEGORIAHOSPEDAJE"));
+                SitioHospedaje.setNombre(rs.getString("NOMBRE"));
+                SitioHospedaje.setLatitud(rs.getString("LATITUD"));
+                SitioHospedaje.setLongitud(rs.getString("LONGITUD"));
+                SitioHospedaje.setDescripcion(rs.getString("DESCRIPCION"));
+                SitioHospedaje.setTelefono(rs.getString("TELEFONO"));
+                SitioHospedaje.setCelular(rs.getString("CELULAR"));
+                SitioHospedaje.setSitioWebURL(rs.getString("SITIOWEBURL"));
+                SitioHospedaje.setFanPageURL(rs.getString("FANPAGEURL"));
+                SitioHospedaje.setWhatsappURL(rs.getString("WHATSAPPURL"));
+                SitioHospedaje.setPagoEfectivo(rs.getInt("PAGOEFECTIVO"));
+                SitioHospedaje.setPagoElectronico(rs.getInt("PAGOELECTRONICO"));
+                SitioHospedaje.setPagoTarjeta(rs.getInt("PAGOTARJETA"));
          
                 list.add(SitioHospedaje);  //añade el objeto temporal en la lista
             }
@@ -73,8 +73,8 @@ public class SitioHospedajeDaoImpl implements SitioHospedajeDao {
                 SitioHospedaje.setIdHospedaje(rs.getString("idHospedaje"));
                 SitioHospedaje.setIdCategoriaHospedaje(rs.getString("idCategoriaHospedaje"));
                 SitioHospedaje.setNombre(rs.getString("nombre"));
-                SitioHospedaje.setLatitud(rs.getLong("latitud"));
-                SitioHospedaje.setLongitud(rs.getLong("longitud"));
+                SitioHospedaje.setLatitud(rs.getString("latitud"));
+                SitioHospedaje.setLongitud(rs.getString("longitud"));
                 SitioHospedaje.setDescripcion(rs.getString("descripcion"));
                 SitioHospedaje.setTelefono(rs.getString("telefono"));
                 SitioHospedaje.setCelular(rs.getString("celular"));

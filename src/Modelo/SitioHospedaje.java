@@ -12,8 +12,8 @@ public class SitioHospedaje {
     private String idHospedaje;
     private String idCategoriaHospedaje;
     private String nombre;
-    private Long latitud;
-    private Long longitud;
+    private String latitud;
+    private String longitud;
     private String descripcion;
     private String telefono;
     private String celular;
@@ -48,21 +48,23 @@ public class SitioHospedaje {
         this.nombre = nombre;
     }
 
-    public Long getLatitud() {
+    public String getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(Long latitud) {
+    public void setLatitud(String latitud) {
         this.latitud = latitud;
     }
 
-    public Long getLongitud() {
+    public String getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(Long longitud) {
+    public void setLongitud(String longitud) {
         this.longitud = longitud;
     }
+
+    
 
     public String getDescripcion() {
         return descripcion;

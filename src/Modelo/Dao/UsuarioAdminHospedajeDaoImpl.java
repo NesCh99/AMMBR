@@ -18,7 +18,7 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
         this.conn = FactoryConexionDB.open();
         
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM UsuarioAdminHospedaje ");  //construye la cadena de consulta
+        sql.append("SELECT * FROM usuarioadminhospedaje ");  //construye la cadena de consulta
 
         List<UsuarioAdminHospedaje> list = new ArrayList<>(); 
         
@@ -26,8 +26,8 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
             ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
             while (rs.next()){  //mientras haya registros en la tabla
                 UsuarioAdminHospedaje UsuarioAdminHospedaje = new UsuarioAdminHospedaje(); 
-                UsuarioAdminHospedaje.setIdUsuario(rs.getString("idUsuario"));
-                UsuarioAdminHospedaje.setIdHospedaje(rs.getString("idHospedaje"));
+                UsuarioAdminHospedaje.setIdUsuario(rs.getString("IDUSUARIO"));
+                UsuarioAdminHospedaje.setIdHospedaje(rs.getString("IDHOSPEDAJE"));
                
          
                 list.add(UsuarioAdminHospedaje);  //añade el objeto temporal en la lista
@@ -46,14 +46,15 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
         UsuarioAdminHospedaje UsuarioAdminHospedaje = new UsuarioAdminHospedaje();
         
         StringBuilder sql = new StringBuilder();    //para almacenar la consulta e efectuar en la bd
-        sql.append("SELECT * FROM UsuarioAdminHospedaje WHERE idUsuario = ").append(idUsuario);   //cadena de consulta
+        sql.append("SELECT * FROM usuarioadminhospedaje WHERE IDUSUARIO = '").append(idUsuario);   //cadena de consulta
+        sql.append("'");
         
         try {
             ResultSet rs = this.conn.query(sql.toString());  //carga todos los registros que cumplen con la condicion del sql
 
             while (rs.next()){          //mientras haya registros cargados en el reseltset
-                UsuarioAdminHospedaje.setIdUsuario(rs.getString("idUsuario"));
-                UsuarioAdminHospedaje.setIdHospedaje(rs.getString("idHospedaje"));
+                UsuarioAdminHospedaje.setIdUsuario(rs.getString("IDUSUARIO"));
+                UsuarioAdminHospedaje.setIdHospedaje(rs.getString("IDHOSPEDAJE"));
             }
         } catch (Exception e) {
             
@@ -69,16 +70,19 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
         boolean save = true;        //bandera para indicar si se almacenaron los cambios
         
         try {
-                if("".equals(UsuarioAdminHospedaje.getIdUsuario())){
+            boolean find = false;
+                StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
+                sqls.append("SELECT IDUSUARIO FROM usuarioadminhospedaje WHERE IDUSUARIO = '").append(UsuarioAdminHospedaje.getIdUsuario());  //construye la cadena de consulta
+                sqls.append("'");
+                ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
+        
+            find = rs.next();
+            
+                if(find==false){
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO UsuarioAdminHospedaje (idUsuario, idHospedaje) VALUES ('").append(UsuarioAdminHospedaje.getIdUsuario());   
+                sql.append("INSERT INTO usuarioadminhospedaje (IDUSUARIO, IDHOSPEDAJE) VALUES ('").append(UsuarioAdminHospedaje.getIdUsuario());   
                 sql.append("', '").append(UsuarioAdminHospedaje.getIdHospedaje()).append("')");      //crear la cadena de conexion
                 this.conn.execute(sql.toString());      //ejecuta la query
-            }else{
-                StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE UsuarioAdminHospedaje SET idUsuario = ").append(UsuarioAdminHospedaje.getIdUsuario());
-                sql.append(", idHospedaje = '").append(UsuarioAdminHospedaje.getIdHospedaje()).append(" WHERE idUsuario = ").append(UsuarioAdminHospedaje.getIdUsuario());      //crear la cadena de conexion
-                this.conn.execute(sql.toString());      //ejecuta la query 
             }
             
             save = true;                                //cambia estado de bandera
@@ -97,7 +101,8 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM UsuarioAdminHospedaje WHERE idUsuario = ").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("DELETE FROM usuarioadminhospedaje WHERE IDUSUARIO = '").append(idUsuario);    //crea la sentencia de borrado
+            sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
         } catch (Exception e) {
@@ -107,4 +112,5 @@ public class UsuarioAdminHospedajeDaoImpl implements UsuarioAdminHospedajeDao {
         }
         return delete;                              //devuelve el valor de la bandera
     }
+    
 }

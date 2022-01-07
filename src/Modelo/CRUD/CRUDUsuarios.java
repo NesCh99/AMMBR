@@ -21,6 +21,7 @@ public class CRUDUsuarios {
         
     
     public void nuevoUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular, int tipo){
+
                 Usuarios.setIdUsuario(idusuario.toUpperCase());
                 Usuarios.setNombre(nombre.toUpperCase());
                 Usuarios.setApellido(apellido.toUpperCase());

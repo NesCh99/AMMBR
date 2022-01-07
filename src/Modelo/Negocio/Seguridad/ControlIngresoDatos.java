@@ -25,6 +25,14 @@ public class ControlIngresoDatos {
         return band;
     }
     
+    public boolean MayorEdad(int edad){
+        boolean band = false;
+        if(edad>=18){
+            band = true;
+        }
+        return band;
+    }
+    
     public boolean numCaracteres(String idusuario){
         boolean band = false;
         if(idusuario.length()<=10){
