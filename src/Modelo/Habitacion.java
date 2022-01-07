@@ -10,7 +10,7 @@ package Modelo;
  */
 public class Habitacion {
     public String idHabitacion;
-    public String idCategoriaHabitacion;
+    public String CategoriaHabitacion;
     public String idHospedaje;
     public int numeroCamas ;
     public String descripcion;
@@ -24,12 +24,12 @@ public class Habitacion {
         this.idHabitacion = idHabitacion;
     }
 
-    public String getIdCategoriaHabitacion() {
-        return idCategoriaHabitacion;
+    public String getCategoriaHabitacion() {
+        return CategoriaHabitacion;
     }
 
-    public void setIdCategoriaHabitacion(String idCategoriaHabitacion) {
-        this.idCategoriaHabitacion = idCategoriaHabitacion;
+    public void setCategoriaHabitacion(String CategoriaHabitacion) {
+        this.CategoriaHabitacion = CategoriaHabitacion;
     }
 
     public String getIdHospedaje() {

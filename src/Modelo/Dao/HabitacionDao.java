@@ -16,4 +16,5 @@ public interface HabitacionDao {
     public Habitacion edit(String idHabitacion);    //prototipo metodo editar
     public boolean save (Habitacion Habitacion);   //prototipo metodo guardar
     public boolean delete(String idHabitacion); 
+    public boolean search(String idHabitacion);
 }

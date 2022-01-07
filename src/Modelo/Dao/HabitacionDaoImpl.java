@@ -8,6 +8,7 @@ import Modelo.Factory.ConexionDB;
 import Modelo.Factory.FactoryConexionDB;
 import Modelo.Habitacion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class HabitacionDaoImpl implements HabitacionDao{
             while (rs.next()){  //mientras haya registros en la tabla
                 Habitacion Habitacion = new Habitacion(); 
                 Habitacion.setIdHabitacion(rs.getString("idHabitacion"));
-                Habitacion.setIdCategoriaHabitacion(rs.getString("idCategoriaHabitacion"));
+                Habitacion.setCategoriaHabitacion(rs.getString("idCategoriaHabitacion"));
                 Habitacion.setIdHospedaje(rs.getString("idHospedaje"));
                 Habitacion.setNumeroCamas(rs.getInt("numeroCamas"));
                 Habitacion.setDescripcion(rs.getString("descripcion"));
@@ -62,7 +63,7 @@ public class HabitacionDaoImpl implements HabitacionDao{
 
             while (rs.next()){          //mientras haya registros cargados en el reseltset              
                 Habitacion.setIdHabitacion(rs.getString("idHabitacion"));
-                Habitacion.setIdCategoriaHabitacion(rs.getString("idCategoriaHabitacion"));
+                Habitacion.setCategoriaHabitacion(rs.getString("idCategoriaHabitacion"));
                 Habitacion.setIdHospedaje(rs.getString("idHospedaje"));
                 Habitacion.setNumeroCamas(rs.getInt("numeroCamas"));
                 Habitacion.setDescripcion(rs.getString("descripcion"));
@@ -82,11 +83,19 @@ public class HabitacionDaoImpl implements HabitacionDao{
         boolean save = true;        //bandera para indicar si se almacenaron los cambios
         
         try {
-            if("".equals(Habitacion.getIdHabitacion())){
+            boolean find = false;
+            StringBuilder sqls = new StringBuilder();   //para crear la sentencia sql
+            sqls.append("SELECT IDHABITACION FROM habitacion WHERE IDHABITACION = '").append(Habitacion.getIdHabitacion());  //construye la cadena de consulta
+            sqls.append("'");
+            ResultSet rs = this.conn.query(sqls.toString());  //ejecuta la consulta
+
+            find = rs.next();
+
+            if (find == false) {
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("INSERT INTO Habitacion (idHabitacion, idCategoriaHabitacion, idHospedaje, numeroCamas, descripcion, "
-                        + "precio) VALUES ('").append(Habitacion.getIdHabitacion());                
-                sql.append("', '").append(Habitacion.getIdCategoriaHabitacion());
+                sql.append("INSERT INTO habitacion (IDHABITACION, CategoriaHabitacion, IDHOSPEDAJE, NUMEROCAMAS, DESCRIPCION, "
+                        + "PRECIO) VALUES ('").append(Habitacion.getIdHabitacion());                
+                sql.append("', '").append(Habitacion.getCategoriaHabitacion());
                 sql.append("', '").append(Habitacion.getIdHospedaje());
                 sql.append("', '").append(Habitacion.getNumeroCamas());
                 sql.append("', '").append(Habitacion.getDescripcion());
@@ -94,12 +103,11 @@ public class HabitacionDaoImpl implements HabitacionDao{
                 this.conn.execute(sql.toString());      //ejecuta la query                
             }else{
                 StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-                sql.append("UPDATE Habitacion SET idHabitacion = ").append(Habitacion.getIdHabitacion());
-                sql.append(", idCategoriaHabitacion = '").append(Habitacion.getIdCategoriaHabitacion());
-                sql.append("', idHospedaje ='").append(Habitacion.getIdHospedaje());
-                sql.append("', numeroCamas= '").append(Habitacion.getNumeroCamas());
-                sql.append("', descripcion = '").append(Habitacion.getDescripcion());
-                sql.append("', precio = '").append(Habitacion.getPrecio()).append(" WHERE idHabitacion = ").append(Habitacion.getIdHabitacion());      //crear la cadena de conexion
+                sql.append("UPDATE habitacion SET CATEGORIAHABITACION = '").append(Habitacion.getCategoriaHabitacion());
+                sql.append("', NUMEROCAMAS= '").append(Habitacion.getNumeroCamas());
+                sql.append("', DESCRIPCION = '").append(Habitacion.getDescripcion());
+                sql.append("', PRECIO = '").append(Habitacion.getPrecio()).append(" WHERE IDHABITACION = ").append(Habitacion.getIdHabitacion());      //crear la cadena de conexion
+                sql.append("'");
                 this.conn.execute(sql.toString());      //ejecuta la query 
             }
                 
@@ -120,7 +128,8 @@ public class HabitacionDaoImpl implements HabitacionDao{
         this.conn = FactoryConexionDB.open();    //abrir la conexion con bd mysql
         try{
             StringBuilder sql = new StringBuilder();   //para crear la sentencia sql
-            sql.append("DELETE FROM Habitacion WHERE idHabitacion = ").append(idHabitacion);    //crea la sentencia de borrado
+            sql.append("DELETE FROM habitacion WHERE IDHABITACION = ").append(idHabitacion);    //crea la sentencia de borrado
+            sql.append("'");
             this.conn.execute(sql.toString());              //ejecuta sentencia sql
             delete = true;
         } catch (Exception e) {
@@ -129,6 +138,29 @@ public class HabitacionDaoImpl implements HabitacionDao{
             this.conn.close();                  //cierra la conexion
         }
         return delete;                              //devuelve el valor de la bandera
+    }
+
+    @Override
+    public boolean search(String idHabitacion) {
+        boolean find = false;                     //bandera que indica resultado de operacion
+
+        this.conn = FactoryConexionDB.open();
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT IDHABITACION FROM habitacion  WHERE IDHABITACION = '").append(idHabitacion);  //construye la cadena de consulta
+        sql.append("'");
+        try {
+
+            ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
+
+            find = rs.next();
+
+        } catch (SQLException e) {
+
+        } finally {
+            this.conn.close();      //cierra la conexion
+        }
+        return find;
     }
     
 }

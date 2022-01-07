@@ -5,6 +5,8 @@
 package Modelo.Negocio.Seguridad;
 
 
+import Modelo.Dao.HabitacionDao;
+import Modelo.Dao.HabitacionDaoImpl;
 import Modelo.Dao.SitioHospedajeDao;
 import Modelo.Dao.SitioHospedajeDaoImpl;
 import Modelo.Dao.UsuarioHuespedDao;
@@ -22,6 +24,8 @@ import Modelo.Usuarios;
 public class ControlIngresoDatos {
     UsuariosDao UsuariosDao = new UsuariosDaoImpl();
     Usuarios Usuarios = new Usuarios();
+    SitioHospedajeDao SitioHospedajeDao = new SitioHospedajeDaoImpl();
+    HabitacionDao HabitacionDao = new HabitacionDaoImpl();
     
     
     public boolean existeUsuario(String idusuario){
@@ -30,12 +34,17 @@ public class ControlIngresoDatos {
         return band;
     }
     
-        SitioHospedajeDao SitioHospedajeDao = new SitioHospedajeDaoImpl();
-    SitioHospedaje sitioHospedaje = new SitioHospedaje();
+        
 
   public boolean existeSitioHospedaje(String idHospedaje) {
         boolean band = false;
         band = SitioHospedajeDao.search(idHospedaje);
+        return band;
+    }
+  
+  public boolean existeHabitacion(String idHabitacion) {
+        boolean band = false;
+        band = HabitacionDao.search(idHabitacion);
         return band;
     }
 

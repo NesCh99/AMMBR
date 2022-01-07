@@ -6,22 +6,7 @@ import Modelo.ServiciosExtra;
 
 public interface ServiciosExtraDao {
 	public List<ServiciosExtra> list();
-
-	public ServiciosExtra edit(String idHospedaje);
+	public ServiciosExtra edit(int idServicioExtra);
 	public boolean save(ServiciosExtra ServiciosExtra);
-	public boolean delete(String idHospedaje);
-
+	public boolean delete(int idServicioExtra);
 }
-
-
-/*
- * public List<ServiciosExtra> list();    //prototipo metodo listar
-  
-	
-	public ServiciosExtra edit(String idHospedaje);
-	public boolean save(ServiciosExtra ServiciosExtra);
-	public boolean delete(String idHospedaje);
- * 
- * 
- * 
- * */
