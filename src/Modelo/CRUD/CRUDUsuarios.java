@@ -15,42 +15,54 @@ import Modelo.Usuarios;
  * @author Nes Ch
  */
 public class CRUDUsuarios {
+
     UsuariosDao UsuariosDao = new UsuariosDaoImpl();
     Usuarios Usuarios = new Usuarios();
     Encriptacion encriptacion = new Encriptacion();
-        
-    
-    public void nuevoUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular, int tipo){
+    ControlIngresoDatos control = new ControlIngresoDatos();
 
-                Usuarios.setIdUsuario(idusuario.toUpperCase());
-                Usuarios.setNombre(nombre.toUpperCase());
-                Usuarios.setApellido(apellido.toUpperCase());
-                Usuarios.setEmail(email.toLowerCase());                
-                Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
-                Usuarios.setCelular(celular);
-                Usuarios.setFoto(foto);
-                Usuarios.setTipoUsuario(tipo);
-                UsuariosDao.save(Usuarios);
-        
+    public void nuevoUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular, int tipo) {
+            if (control.email(email)) {
+                if (control.contraseña(contraseña) == true) {
+                    Usuarios.setIdUsuario(idusuario.toUpperCase());
+                    Usuarios.setNombre(nombre.toUpperCase());
+                    Usuarios.setApellido(apellido.toUpperCase());
+                    Usuarios.setEmail(email.toLowerCase());
+                    Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
+                    Usuarios.setCelular(celular);
+                    Usuarios.setFoto(foto);
+                    Usuarios.setTipoUsuario(tipo);
+                    UsuariosDao.save(Usuarios);
+                } else {
+                    System.out.println("Ingrese una contraseña mino de 8 caracteres");
+                }
+            } else {
+                System.out.println("Ingrese un email valido");
+            }
     }
-    
-    public void editarUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular){
-        Usuarios.setIdUsuario(idusuario.toUpperCase());
-        Usuarios.setNombre(nombre.toUpperCase());
-        Usuarios.setApellido(apellido.toUpperCase());
-        Usuarios.setEmail(email.toLowerCase());
-        Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
-        Usuarios.setCelular(celular);
-        Usuarios.setFoto(foto);        
-        UsuariosDao.save(Usuarios);
+
+    public void editarUsuario(String idusuario, String nombre, String apellido, String email, String foto, String contraseña, String celular) {
+        if (control.contraseña(contraseña) == true) {
+            Usuarios.setIdUsuario(idusuario.toUpperCase());
+            Usuarios.setNombre(nombre.toUpperCase());
+            Usuarios.setApellido(apellido.toUpperCase());
+            Usuarios.setEmail(email.toLowerCase());
+            Usuarios.setContrasena(encriptacion.encode(nombre, contraseña));
+            Usuarios.setCelular(celular);
+            Usuarios.setFoto(foto);
+            UsuariosDao.save(Usuarios);
+        } else {
+            System.out.println("ingrese una contraseña mino de 8 caracteres");
+        }
+
     }
-    
-    public void eliminarUsuario(String idusuario){
+
+    public void eliminarUsuario(String idusuario) {
         Usuarios.setIdUsuario(idusuario.toUpperCase());
         UsuariosDao.delete(idusuario.toUpperCase());
     }
-    
-    public void buscarUsuarioxIdUsuario(String idUsuario){
+
+    public void buscarUsuarioxIdUsuario(String idUsuario) {
         UsuariosDao.search(idUsuario);
     }
 }

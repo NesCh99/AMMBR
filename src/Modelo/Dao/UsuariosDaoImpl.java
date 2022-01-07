@@ -160,7 +160,7 @@ public class UsuariosDaoImpl implements UsuariosDao {
                 Usuarios.setNombre(rs.getString("NOMBRE"));
                 Usuarios.setApellido(rs.getString("APELLIDO"));
                 Usuarios.setEmail(rs.getString("EMAIL"));
-                Usuarios.setContrasena(rs.getString("CONTRASEÑA"));
+                Usuarios.setContrasena(rs.getString("CONTRASENA"));
                 Usuarios.setCelular(rs.getString("CELULAR"));
                 Usuarios.setFoto(rs.getString("FOTO"));
             }

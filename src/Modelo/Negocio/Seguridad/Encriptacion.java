@@ -9,7 +9,6 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.swing.JOptionPane;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -40,10 +39,11 @@ public class Encriptacion {
         return encoded;
     }
 
-    public String decode(String secretKey, String CodedContraseña) {
+    public String decode(String secretKey, String CodedContrasena) {
         String decoded = "";
+
         try {
-            byte[] message = Base64.decodeBase64(CodedContraseña.getBytes("utf-8"));
+            byte[] message = Base64.decodeBase64(CodedContrasena.getBytes("utf-8"));
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] digestOfPassword = md5.digest(secretKey.getBytes("utf-8"));
             byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
@@ -54,8 +54,9 @@ public class Encriptacion {
             decoded = new String(plainText, "UTF-8");
 
         } catch (Exception ex) {
-//              JOptionPane.showMessageDialog(null, "Algo salió mal");
+            System.out.println("Algo salió mal");
         }
+
         return decoded;
     }
 }

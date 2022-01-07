@@ -17,11 +17,11 @@ public class generaCodigoHospedaje {
 
     ConexionDB conn;
 
-    public String  codigoHospedaje() {
+    public String  codigoHospedaje(int tipoHospedaje) {
         this.conn = FactoryConexionDB.open();
         int number = 0;
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM SitioHospedaje ");  //construye la cadena de consulta
+        sql.append("SELECT * FROM sitiohospedaje ");  //construye la cadena de consulta
         try {
             ResultSet rs = this.conn.query(sql.toString());  //ejecuta la consulta
             while (rs.next()) {  //mientras haya registros en la tabla
@@ -38,8 +38,22 @@ public class generaCodigoHospedaje {
         //devuelve la lista generada
 
       StringBuffer codigo = new StringBuffer();
-      codigo.append("HOTEL-");
-      codigo.append(number+1);
+      if(tipoHospedaje == 1){
+          codigo.append("HOT-");
+      }else if (tipoHospedaje == 2){
+          codigo.append("HOS-");
+      }else{
+          codigo.append("HST-");
+      }
+      if(number < 10){
+          codigo.append("00");
+          codigo.append(number+1);    
+      }else if(number >= 10 && number <100){
+          codigo.append("0");
+          codigo.append(number+1);
+      }else{          
+          codigo.append(number+1);
+      }
   
         return codigo.toString();
     }
